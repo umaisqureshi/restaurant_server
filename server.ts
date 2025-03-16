@@ -1,18 +1,11 @@
-import http from "http";
-import { getProducts } from "./productController.ts";
+import express from "express";
+import productRoute from "./routes/product_route.ts";
+const PORT =  process.env.PORT || 8000;
+const app = express();
 
-const PORT = 8000;
 
-const server = http.createServer((req, res) => {
-    if (req.url === "/products" && req.method === "GET") {
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(getProducts()));
-    } else {
-        res.writeHead(404, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ message: "Route not found" }));
-    }
-});
+app.use("/api", productRoute);
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

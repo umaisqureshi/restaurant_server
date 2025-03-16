@@ -34,4 +34,4 @@ class ProductData implements ProductModel {
 
 type ProductType = "pizza" | "burger" | "pasta" | "dessert" | "drink";
 
-export { ProductData, ProductType };
+export { ProductData, ProductType, ProductModel };

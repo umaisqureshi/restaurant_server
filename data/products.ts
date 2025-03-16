@@ -105,4 +105,4 @@ const products: ProductData[] = [
 
 ]
 
-export { products };
+export {products};
