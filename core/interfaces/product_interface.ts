@@ -7,6 +7,7 @@ interface ProductModel {
     rating: number,
     type: ProductType,
     isTopRated: boolean,
+    isFavorite: boolean,
 }
 
 
@@ -19,7 +20,7 @@ class ProductData implements ProductModel {
     rating: number;
     type: ProductType;
     isTopRated: boolean;
-
+    isFavorite: boolean;
     constructor(product: ProductModel) {
         this.id = product.id;
         this.name = product.name;
@@ -29,6 +30,7 @@ class ProductData implements ProductModel {
         this.rating = product.rating;
         this.type = product.type;
         this.isTopRated = product.isTopRated;
+        this.isFavorite = product.isFavorite;
     }
 }
 

@@ -1,12 +1,13 @@
 import { ProductData } from "../core/interfaces/product_interface";
 
-const products: ProductData[] = [
+let products: ProductData[] = [
     new ProductData({
         id: 1,
         name: 'Cheese Burger',
         price: 5.99,
         type: "burger",
         isTopRated: true,
+        isFavorite: false,
         rating: 4.5,
         description:
             'Cheese Burger with beef patty, cheese, lettuce, tomato, and mayo',
@@ -17,6 +18,7 @@ const products: ProductData[] = [
         name: 'Pizza',
         price: 7.99,
         type: "pizza",
+        isFavorite: false,
         isTopRated: false,
         rating: 4.5,
         description: 'Pizza with tomato sauce, cheese, and pepperoni',
@@ -28,6 +30,7 @@ const products: ProductData[] = [
         isTopRated: false,
         rating: 4.5,
         type: "drink",
+        isFavorite: false,
         description: 'Coke with ice',
         imageUrl: 'drink.jpg',
         id: 3,
@@ -37,6 +40,7 @@ const products: ProductData[] = [
         price: 1.99,
         rating: 4.5,
         isTopRated: true,
+        isFavorite: false,
         type: "drink",
         description: 'Pepsi with ice',
         imageUrl: 'drink.jpg',
@@ -47,6 +51,7 @@ const products: ProductData[] = [
         price: 2.99,
         type: "pasta",
         isTopRated: false,
+        isFavorite: false,
         rating: 4.5,
         description: 'Italian Pasta with tomato sauce and cheese',
         imageUrl: 'pasta.png',
@@ -57,6 +62,7 @@ const products: ProductData[] = [
         price: 3.99,
         type: "burger",
         isTopRated: false,
+        isFavorite: false,
         rating: 4.5,
         description: 'BBQ Chicken with lettuce, tomato, and mayo',
         imageUrl: 'burger.jpg',
@@ -66,6 +72,7 @@ const products: ProductData[] = [
         name: 'Water',
         price: 0.99,
         isTopRated: true,
+        isFavorite: false,
         rating: 4.5,
         type: "drink",
         description: 'Water with ice',
@@ -80,6 +87,8 @@ const products: ProductData[] = [
         rating: 4.5,
         description: 'King Pizza with tomato sauce, cheese, and pepperoni',
         imageUrl: 'pizza.jpg',
+        isFavorite: false,
+
         id: 8
     }),
     new ProductData({
@@ -87,6 +96,7 @@ const products: ProductData[] = [
         price: 2.99,
         type: "drink",
         isTopRated: false,
+        isFavorite: false,
         rating: 4.5,
         description: 'Coffee with milk',
         imageUrl: 'drink.jpg',
@@ -97,6 +107,7 @@ const products: ProductData[] = [
         price: 3.99,
         type: "pasta",
         isTopRated: true,
+        isFavorite: false,
         rating: 4.5,
         description: 'Spaghetti with tomato sauce and cheese',
         imageUrl: 'pasta.png',
@@ -105,4 +116,4 @@ const products: ProductData[] = [
 
 ]
 
-export {products};
+export { products };
