@@ -1,7 +1,7 @@
-import { ProductData } from "../core/interfaces/product_interface";
+import { ProductModel } from "../model/product_model";
 
-let products: ProductData[] = [
-    new ProductData({
+let products: ProductModel[] = [
+    new ProductModel({
         id: 1,
         name: 'Cheese Burger',
         price: 5.99,
@@ -13,7 +13,7 @@ let products: ProductData[] = [
             'Cheese Burger with beef patty, cheese, lettuce, tomato, and mayo',
         imageUrl: 'burger.jpg',
     }),
-    new ProductData({
+    new ProductModel({
         id: 2,
         name: 'Pizza',
         price: 7.99,
@@ -24,7 +24,7 @@ let products: ProductData[] = [
         description: 'Pizza with tomato sauce, cheese, and pepperoni',
         imageUrl: 'pizza.jpg',
     }),
-    new ProductData({
+    new ProductModel({
         name: 'Coke',
         price: 1.99,
         isTopRated: false,
@@ -35,7 +35,7 @@ let products: ProductData[] = [
         imageUrl: 'drink.jpg',
         id: 3,
     }),
-    new ProductData({
+    new ProductModel({
         name: 'Pepsi',
         price: 1.99,
         rating: 4.5,
@@ -46,7 +46,7 @@ let products: ProductData[] = [
         imageUrl: 'drink.jpg',
         id: 4
     }),
-    new ProductData({
+    new ProductModel({
         name: 'Italian Pasta',
         price: 2.99,
         type: "pasta",
@@ -57,7 +57,7 @@ let products: ProductData[] = [
         imageUrl: 'pasta.png',
         id: 5
     }),
-    new ProductData({
+    new ProductModel({
         name: 'BBQ Chicken',
         price: 3.99,
         type: "burger",
@@ -68,7 +68,7 @@ let products: ProductData[] = [
         imageUrl: 'burger.jpg',
         id: 6
     }),
-    new ProductData({
+    new ProductModel({
         name: 'Water',
         price: 0.99,
         isTopRated: true,
@@ -79,7 +79,7 @@ let products: ProductData[] = [
         imageUrl: 'drink.jpg',
         id: 7
     }),
-    new ProductData({
+    new ProductModel({
         name: 'King Pizza',
         price: 9.99,
         type: "pizza",
@@ -91,7 +91,7 @@ let products: ProductData[] = [
 
         id: 8
     }),
-    new ProductData({
+    new ProductModel({
         name: 'Coffee',
         price: 2.99,
         type: "drink",
@@ -102,7 +102,7 @@ let products: ProductData[] = [
         imageUrl: 'drink.jpg',
         id: 9
     }),
-    new ProductData({
+    new ProductModel({
         name: 'Spaghetti',
         price: 3.99,
         type: "pasta",

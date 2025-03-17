@@ -1,17 +1,7 @@
-interface ProductModel {
-    id: number,
-    name: string,
-    description: string,
-    price: number,
-    imageUrl: string,
-    rating: number,
-    type: ProductType,
-    isTopRated: boolean,
-    isFavorite: boolean,
-}
 
+import { ProductInterface, ProductType } from "../model/interfaces/product_interface.ts";
 
-class ProductData implements ProductModel {
+class ProductModel implements ProductInterface {
     id: number;
     name: string;
     description: string;
@@ -21,7 +11,7 @@ class ProductData implements ProductModel {
     type: ProductType;
     isTopRated: boolean;
     isFavorite: boolean;
-    constructor(product: ProductModel) {
+    constructor(product: ProductInterface) {
         this.id = product.id;
         this.name = product.name;
         this.description = product.description;
@@ -34,6 +24,4 @@ class ProductData implements ProductModel {
     }
 }
 
-type ProductType = "pizza" | "burger" | "pasta" | "dessert" | "drink";
-
-export { ProductData, ProductType, ProductModel };
+export { ProductModel };

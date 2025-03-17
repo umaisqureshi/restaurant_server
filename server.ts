@@ -1,5 +1,5 @@
 import express from "express";
-import productRoute from "./routes/product_route.ts";
+import productRoute from "./view/product_route.ts";
 import errorMiddleware from "./middleware/error.ts";
 
 
