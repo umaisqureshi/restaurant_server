@@ -1,16 +1,19 @@
-import { products } from "../db/product_db.ts";
 import { ProductModel } from "../model/product_model.ts";
-
-
+import dbCollectionHelper from "../db/helpers/db_collection_helper.ts";
+import { ObjectId } from "mongodb";
 //Controllers
 
-const getProductsController = (req, res, next) => {
-    const product = getProducts();
-    res.status(200).json(product);
+
+const collection = await dbCollectionHelper();
+
+
+const getProductsController = async (req, res, next) => {
+    let products = await getProducts();
+    res.status(200).json(products);
 }
 
-const markAsFavoriteProductsController = (req, res, next) => {
-    const product = markAsFavorite(parseInt(req.params.id));
+const markAsFavoriteProductsController = async (req, res, next) => {
+    const product = await markAsFavorite(parseInt(req.params.id));
     if (product === undefined) {
         const error = new Error("Product not found");
         error.cause = 404;
@@ -19,8 +22,8 @@ const markAsFavoriteProductsController = (req, res, next) => {
     res.status(200).json(product);
 }
 
-const getFavoriteProductsController = (req, res, next) => {
-    const products = getFavoriteProducts();
+const getFavoriteProductsController = async (req, res, next) => {
+    const products = await getFavoriteProducts();
     if (products === undefined) {
         const error = new Error("Product not found");
         error.cause = 404;
@@ -32,23 +35,32 @@ const getFavoriteProductsController = (req, res, next) => {
 
 
 //Methods
-function getProducts(): ProductModel[] {
-    return products
+async function getProducts(): Promise<ProductModel[]> {
+    const products =
+        await collection?.find({}).toArray();
+    const data = products.map((product) => {
+        return ProductModel.fromJson(product);
+    });
+    return data;
 }
 
-function markAsFavorite(id: number): ProductModel | undefined {
-    const product = products.find((product) => product.id === id);
+async function markAsFavorite(id: number): Promise<ProductModel | undefined> {
+    const product = await collection?.findOne({ _id: new ObjectId(id) });
     if (!product) return undefined;
-    product.isFavorite = true;
-    return product;
+    const data = ProductModel.fromJson(product);
+    await collection?.updateOne({ _id: new ObjectId(id) }, { $set: { isFavorite: true } });
+    return data;
 }
 
-function getFavoriteProducts(): ProductModel[] | undefined {
-    const favoriteProducts: ProductModel[] = products.filter((product) => product.isFavorite);
-    if (favoriteProducts.length === 0) {
+async function getFavoriteProducts(): Promise<ProductModel[] | undefined> {
+    const favoriteProducts = await collection?.find({ isFavorite: true }).toArray();
+    if (favoriteProducts === null) {
         return undefined;
     }
-    return favoriteProducts;
+    const data = favoriteProducts.map((product) => {
+        return ProductModel.fromJson(product);
+    });
+    return data;
 }
 
 // Exporting controllers
