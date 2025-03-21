@@ -1,73 +1,49 @@
 import { ProductModel } from "../model/product_model.ts";
-import dbCollectionHelper from "../db/helpers/db_collection_helper.ts";
-import { ObjectId } from "mongodb";
-//Controllers
-
-
-const collection = await dbCollectionHelper();
 
 
 const getProductsController = async (req, res, next) => {
-    let products = await getProducts();
-    res.status(200).json(products);
+    await ProductModel.find().then((products) => {
+        console.log(products);
+        res.status(200).json(products);
+    }).catch((err) => {
+        res.status(500).json({ message: err.message });
+    });
 }
 
+const createProductController = async (req, res, next) => {
+    console.log(req.body);
+    const { name, description, price, imageUrl, rating, type, isTopRated, isFavorite } = req.body;
+    await ProductModel.create({ name, description, price, imageUrl, rating, type, isTopRated, isFavorite }).then((product) => {
+        res.status(200).json(product);
+    }).catch((err) => {
+        res.status(500).json({ message: err.message });
+    });
+}
 const markAsFavoriteProductsController = async (req, res, next) => {
-    const product = await markAsFavorite(parseInt(req.params.id));
-    if (product === undefined) {
-        const error = new Error("Product not found");
-        error.cause = 404;
-        return next(error);
-    }
-    res.status(200).json(product);
+    const { id } = req.params;
+    const { isFavorite } = req.body;
+    await ProductModel.findByIdAndUpdate(id, { isFavorite }).then((product) => {
+        res.status(200).json(product);
+    }).catch((err) => {
+        res.status(500).json({ message: err.message });
+    });
 }
 
 const getFavoriteProductsController = async (req, res, next) => {
-    const products = await getFavoriteProducts();
-    if (products === undefined) {
-        const error = new Error("Product not found");
-        error.cause = 404;
-        return next(error);
-    }
-    res.status(200).json(products);
-}
-
-
-
-//Methods
-async function getProducts(): Promise<ProductModel[]> {
-    const products =
-        await collection?.find({}).toArray();
-    const data = products.map((product) => {
-        return ProductModel.fromJson(product);
+    await ProductModel.find({ isFavorite: true }).then((products) => {
+        res.status(200).json(products);
+    }).catch((err) => {
+        res.status(500).json({ message: err.message });
     });
-    return data;
 }
 
-async function markAsFavorite(id: number): Promise<ProductModel | undefined> {
-    const product = await collection?.findOne({ _id: new ObjectId(id) });
-    if (!product) return undefined;
-    const data = ProductModel.fromJson(product);
-    await collection?.updateOne({ _id: new ObjectId(id) }, { $set: { isFavorite: true } });
-    return data;
-}
-
-async function getFavoriteProducts(): Promise<ProductModel[] | undefined> {
-    const favoriteProducts = await collection?.find({ isFavorite: true }).toArray();
-    if (favoriteProducts === null) {
-        return undefined;
-    }
-    const data = favoriteProducts.map((product) => {
-        return ProductModel.fromJson(product);
-    });
-    return data;
-}
 
 // Exporting controllers
 const productControllers = {
     getProductsController,
     markAsFavoriteProductsController,
-    getFavoriteProductsController
+    getFavoriteProductsController,
+    createProductController
 }
 
 //Exports
