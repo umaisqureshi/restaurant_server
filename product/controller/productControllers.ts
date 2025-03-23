@@ -10,15 +10,25 @@ const getProductsController = async (req, res, next) => {
     });
 }
 
+
+
 const createProductController = async (req, res, next) => {
     console.log(req.body);
     const { name, description, price, imageUrl, rating, type, isTopRated, isFavorite } = req.body;
+
+    if (!name || !description || !price || !imageUrl || !type) {
+        return res.status(400).json({ message: "Missing required fields" });
+    }
+
     await ProductModel.create({ name, description, price, imageUrl, rating, type, isTopRated, isFavorite }).then((product) => {
         res.status(200).json(product);
     }).catch((err) => {
         res.status(500).json({ message: err.message });
     });
 }
+
+
+
 const markAsFavoriteProductsController = async (req, res, next) => {
     const { id } = req.params;
     const { isFavorite } = req.body;
@@ -28,6 +38,9 @@ const markAsFavoriteProductsController = async (req, res, next) => {
         res.status(500).json({ message: err.message });
     });
 }
+
+
+
 
 const getFavoriteProductsController = async (req, res, next) => {
     await ProductModel.find({ isFavorite: true }).then((products) => {
