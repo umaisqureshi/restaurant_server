@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
     name: String,
-    id: String,
     description: String,
     price: Number,
     imageUrl: String,
@@ -11,7 +10,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     isTopRated: Boolean,
     isFavorite: Boolean
-});
+}, { timestamps: true });
 
 const ProductModel = mongoose.model("productsCollection", productSchema);
 

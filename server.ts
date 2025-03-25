@@ -1,5 +1,5 @@
 import express from "express";
-import productRoute from "./product/view/product_route.ts";
+import productRoute from "./product/view/product.route.ts";
 import errorMiddleware from "./middleware/error.ts";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
